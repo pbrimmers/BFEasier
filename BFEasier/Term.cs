@@ -272,9 +272,45 @@ namespace BFEasier
         public static Term Nullterm()
         {
             int[] input = { -1 };
-            Term term = new Term(input, false, input);
-            term.Ist_Null = true;
+            Term term = new Term(input, false, input)
+            {
+                Ist_Null = true
+            };
             return term;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var term = obj as Term;
+            return term != null &&
+                   dontcare == term.dontcare &&
+                   EqualityComparer<int[]>.Default.Equals(input, term.input) &&
+                   grad == term.grad &&
+                   EqualityComparer<int[]>.Default.Equals(minterme, term.minterme) &&
+                   Ist_Null == term.Ist_Null &&
+                   Ist_Primimplikant == term.Ist_Primimplikant &&
+                   DontCare == term.DontCare &&
+                   Laenge == term.Laenge &&
+                   AnzahlEingabevariablen == term.AnzahlEingabevariablen &&
+                   Grad == term.Grad &&
+                   EqualityComparer<int[]>.Default.Equals(Minterme, term.Minterme);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 634771311;
+            hashCode = hashCode * -1521134295 + dontcare.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<int[]>.Default.GetHashCode(input);
+            hashCode = hashCode * -1521134295 + grad.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<int[]>.Default.GetHashCode(minterme);
+            hashCode = hashCode * -1521134295 + Ist_Null.GetHashCode();
+            hashCode = hashCode * -1521134295 + Ist_Primimplikant.GetHashCode();
+            hashCode = hashCode * -1521134295 + DontCare.GetHashCode();
+            hashCode = hashCode * -1521134295 + Laenge.GetHashCode();
+            hashCode = hashCode * -1521134295 + AnzahlEingabevariablen.GetHashCode();
+            hashCode = hashCode * -1521134295 + Grad.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<int[]>.Default.GetHashCode(Minterme);
+            return hashCode;
         }
     }
 }

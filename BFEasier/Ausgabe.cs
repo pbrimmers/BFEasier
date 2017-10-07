@@ -44,11 +44,7 @@ namespace BFEasier
         /// </summary>
         public void DrawAll()
         {
-            Graphics graphics;
-            float width;
-            float height;
-            float abstand_links;
-            berechneBildgroesse(out graphics, out width, out height, out abstand_links);
+            berechneBildgroesse(out Graphics graphics, out float width, out float height, out float abstand_links);
 
             bild = new Bitmap((int)Math.Ceiling(width), (int)Math.Ceiling(height));
             graphics = Graphics.FromImage(bild);
@@ -129,10 +125,8 @@ namespace BFEasier
         {
             Graphics graphics = Graphics.FromImage(bild);
             ArrayList terme = data[index];
-            bool termeVorhanden;
-            int[] maxAnzahlProGrad = getMaxAnzahlGrade(terme, out termeVorhanden);
-            float width;
-            float[] spaltenbreiten = spaltenbreitenBerechnen(graphics, terme, maxAnzahlProGrad, out width);
+            int[] maxAnzahlProGrad = getMaxAnzahlGrade(terme, out bool termeVorhanden);
+            float[] spaltenbreiten = spaltenbreitenBerechnen(graphics, terme, maxAnzahlProGrad, out float width);
             float zeichenhoehe = graphics.MeasureString(Properties.Settings.Default.einChar + "1", Properties.Settings.Default.Font).Width;
             float temp_width = getBreite(graphics, (Term[])this.terme[index], index);
             float height = berechneBildhoehe(maxAnzahlProGrad, zeichenhoehe, termeVorhanden);
