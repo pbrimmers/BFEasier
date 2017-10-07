@@ -4,3 +4,6 @@ BFEasier/bin
 Debug
 *.suo
 *.ncb
+Backup
+.vs
+UpgradeLog.htm
