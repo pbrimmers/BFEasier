@@ -34,7 +34,7 @@
         /// <param name="e">Objekt der Klasse 'EventArgs'</param>
         private void FormTabelle_Load(Object sender, EventArgs e)
         {
-            initialisiereFunktionstabelle();
+            InitialisiereFunktionstabelle();
 
             comboBoxWert.SelectedIndex = 1;
 
@@ -50,7 +50,7 @@
         /// Berechnet die Tabellengröße und erstellt das Bild dieser und
         /// weist die entsprechenden Parameter der PictureBox zu.
         /// </summary>
-        private void initialisiereFunktionstabelle()
+        private void InitialisiereFunktionstabelle()
         {
             fTabelle.SpaltenBerechnen(tabelle.CreateGraphics());
             tabelle.Size = fTabelle.Groesse;
@@ -76,7 +76,7 @@
         /// </summary>
         /// <param name="sender">Objekt, das diese Funktion aufruft</param>
         /// <param name="e">Objekt der Klasse 'MouseEventArgs'</param>
-        private void tabelle_MouseClick(Object sender, MouseEventArgs e)
+        private void Tabelle_MouseClick(Object sender, MouseEventArgs e)
         {
             fTabelle.Mausklick(e.X, e.Y);
             tabelle.Image = fTabelle.Grafik;
@@ -87,7 +87,7 @@
         /// </summary>
         /// <param name="sender">Objekt, das diese Funktion aufruft</param>
         /// <param name="e">Objekt der Klasse 'MouseEventArgs'</param>
-        private void tabelle_MouseDoubleClick(Object sender, MouseEventArgs e)
+        private void Tabelle_MouseDoubleClick(Object sender, MouseEventArgs e)
         {
             fTabelle.Mausklick(e.X, e.Y);
             tabelle.Image = fTabelle.Grafik;
@@ -99,7 +99,7 @@
         /// </summary>
         /// <param name="sender">Objekt, das diese Funktion aufruft</param>
         /// <param name="e">Objekt der Klasse 'EventArgs'</param>
-        private void buttonSetzen_Click(Object sender, EventArgs e)
+        private void ButtonSetzen_Click(Object sender, EventArgs e)
         {
             // Werte setzen
             fTabelle.SetzeWerte(comboBoxVariable.SelectedIndex, comboBoxWert.SelectedIndex - 1);
@@ -112,7 +112,7 @@
         /// </summary>
         /// <param name="sender">Objekt, das diese Funktion aufruft</param>
         /// <param name="e">Objekt der Klasse 'EventArgs'</param>
-        private void buttonVereinfache_Click(Object sender, EventArgs e)
+        private void ButtonVereinfache_Click(Object sender, EventArgs e)
         {
             if (checkBoxAusfuehrlich.Checked)
             {
@@ -207,15 +207,15 @@
             textBoxAusgabe.Text = tempString;
         }
 
-        private void buttonParameterAendern_Click(Object sender, EventArgs e)
+        private void ButtonParameterAendern_Click(Object sender, EventArgs e)
         {
             var form = new EingabeForm(fTabelle.AnzahlEingabevariablen, fTabelle.AnzahlAusgabevariablen);
             form.ShowDialog();
             fTabelle = new Funktionstabelle(form.AnzEinVar, form.AnzAusVar);
-            initialisiereFunktionstabelle();
+            InitialisiereFunktionstabelle();
         }
 
-        private void buttonSpeichern_Click(Object sender, EventArgs e)
+        private void ButtonSpeichern_Click(Object sender, EventArgs e)
         {
             if (saveFileDialog1.ShowDialog() != DialogResult.Cancel)
             {

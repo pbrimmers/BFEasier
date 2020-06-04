@@ -78,8 +78,8 @@
             this.tabelle.Size = new System.Drawing.Size(349, 529);
             this.tabelle.TabIndex = 0;
             this.tabelle.TabStop = false;
-            this.tabelle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabelle_MouseClick);
-            this.tabelle.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tabelle_MouseDoubleClick);
+            this.tabelle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Tabelle_MouseClick);
+            this.tabelle.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Tabelle_MouseDoubleClick);
             // 
             // groupBoxTabelle
             // 
@@ -146,7 +146,7 @@
             this.buttonSetzen.TabIndex = 6;
             this.buttonSetzen.Text = "setzen";
             this.buttonSetzen.UseVisualStyleBackColor = true;
-            this.buttonSetzen.Click += new System.EventHandler(this.buttonSetzen_Click);
+            this.buttonSetzen.Click += new System.EventHandler(this.ButtonSetzen_Click);
             // 
             // panelRechts
             // 
@@ -181,7 +181,7 @@
             this.buttonSpeichern.TabIndex = 13;
             this.buttonSpeichern.Text = "Speichern";
             this.buttonSpeichern.UseVisualStyleBackColor = true;
-            this.buttonSpeichern.Click += new System.EventHandler(this.buttonSpeichern_Click);
+            this.buttonSpeichern.Click += new System.EventHandler(this.ButtonSpeichern_Click);
             // 
             // buttonParameterAendern
             // 
@@ -192,7 +192,7 @@
             this.buttonParameterAendern.TabIndex = 12;
             this.buttonParameterAendern.Text = "Anzahl Ein-/Ausgabegrößen ändern";
             this.buttonParameterAendern.UseVisualStyleBackColor = true;
-            this.buttonParameterAendern.Click += new System.EventHandler(this.buttonParameterAendern_Click);
+            this.buttonParameterAendern.Click += new System.EventHandler(this.ButtonParameterAendern_Click);
             // 
             // label5
             // 
@@ -265,7 +265,7 @@
             this.buttonVereinfache.TabIndex = 8;
             this.buttonVereinfache.Text = "Vereinfache";
             this.buttonVereinfache.UseVisualStyleBackColor = true;
-            this.buttonVereinfache.Click += new System.EventHandler(this.buttonVereinfache_Click);
+            this.buttonVereinfache.Click += new System.EventHandler(this.ButtonVereinfache_Click);
             // 
             // label3
             // 
