@@ -1,9 +1,0 @@
-syntax: glob
-BFEasier/obj
-BFEasier/bin
-Debug
-*.suo
-*.ncb
-Backup
-.vs
-UpgradeLog.htm
