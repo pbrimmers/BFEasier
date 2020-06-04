@@ -23,12 +23,12 @@ namespace BFEasier
         public FormTabelle(Funktionstabelle fTabelle)
         {
             InitializeComponent();
-            this.MinimumSize = this.Size;
+            MinimumSize = Size;
             this.fTabelle = fTabelle;
 
             // Größen-/Positionsdifferenz speichern
-            gruppeTabSize = new Size(this.Size.Width - groupBoxTabelle.Size.Width, this.Size.Height - groupBoxTabelle.Size.Height);
-            panelFunkSize = new Size(this.Size.Width - panelRechts.Location.X, this.Size.Height - panelRechts.Location.Y);
+            gruppeTabSize = new Size(Size.Width - groupBoxTabelle.Size.Width, Size.Height - groupBoxTabelle.Size.Height);
+            panelFunkSize = new Size(Size.Width - panelRechts.Location.X, Size.Height - panelRechts.Location.Y);
             panelTabSize = new Size(groupBoxTabelle.Size.Width - panelTabelle.Size.Width, groupBoxTabelle.Size.Height - panelTabelle.Size.Height);
         }
 
@@ -57,9 +57,9 @@ namespace BFEasier
         /// </summary>
         private void initialisiereFunktionstabelle()
         {
-            fTabelle.spaltenBerechnen(tabelle.CreateGraphics());
+            fTabelle.SpaltenBerechnen(tabelle.CreateGraphics());
             tabelle.Size = fTabelle.Groesse;
-            fTabelle.zeichneTabelle();
+            fTabelle.ZeichneTabelle();
             tabelle.Image = fTabelle.Grafik;
         }
 
@@ -70,9 +70,9 @@ namespace BFEasier
         /// <param name="e">Objekt der Klasse 'EventArgs'</param>
         private void FormTabelle_SizeChanged(object sender, EventArgs e)
         {
-            groupBoxTabelle.Size = new Size(this.Size.Width - gruppeTabSize.Width, this.Size.Height - gruppeTabSize.Height);
+            groupBoxTabelle.Size = new Size(Size.Width - gruppeTabSize.Width, Size.Height - gruppeTabSize.Height);
             panelTabelle.Size = new Size(groupBoxTabelle.Size.Width - panelTabSize.Width, groupBoxTabelle.Size.Height - panelTabSize.Height);
-            panelRechts.Location = new Point(this.Size.Width - panelFunkSize.Width, panelRechts.Location.Y);
+            panelRechts.Location = new Point(Size.Width - panelFunkSize.Width, panelRechts.Location.Y);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace BFEasier
         /// <param name="e">Objekt der Klasse 'MouseEventArgs'</param>
         private void tabelle_MouseClick(object sender, MouseEventArgs e)
         {
-            fTabelle.mausklick(e.X, e.Y);
+            fTabelle.Mausklick(e.X, e.Y);
             tabelle.Image = fTabelle.Grafik;
         }
 
@@ -93,7 +93,7 @@ namespace BFEasier
         /// <param name="e">Objekt der Klasse 'MouseEventArgs'</param>
         private void tabelle_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            fTabelle.mausklick(e.X, e.Y);
+            fTabelle.Mausklick(e.X, e.Y);
             tabelle.Image = fTabelle.Grafik;
         }
 
@@ -106,7 +106,7 @@ namespace BFEasier
         private void buttonSetzen_Click(object sender, EventArgs e)
         {
             // Werte setzen
-            fTabelle.setzeWerte(comboBoxVariable.SelectedIndex, comboBoxWert.SelectedIndex - 1);
+            fTabelle.SetzeWerte(comboBoxVariable.SelectedIndex, comboBoxWert.SelectedIndex - 1);
             // PictureBox aktualisieren
             tabelle.Image = fTabelle.Grafik;
         }
@@ -133,16 +133,16 @@ namespace BFEasier
             QuineMcCluskey qmc;
             System.Collections.ArrayList[] list = new System.Collections.ArrayList[fTabelle.AnzahlAusgabevariablen];
 
-            System.Threading.Thread thread = new System.Threading.Thread(Waiting.wait);
+            System.Threading.Thread thread = new System.Threading.Thread(Waiting.Wait);
             thread.Start();
 
             // Für jede Ausgangsvariable den Term vereinfachen
             for (int i = 0; i < fTabelle.AnzahlAusgabevariablen; i++)
             {
                 // Terme auslesen und vereinfachen
-                qmc = new QuineMcCluskey(fTabelle.gibMinterme(i));
+                qmc = new QuineMcCluskey(fTabelle.GibMinterme(i));
                 list[i] = new System.Collections.ArrayList();
-                vereinfachteTerme.Add(qmc.vereinfache(ref list[i]));
+                vereinfachteTerme.Add(qmc.Vereinfache(ref list[i]));
             }
 
             System.Threading.Thread.Sleep(100);
@@ -162,8 +162,8 @@ namespace BFEasier
                 catch
                 {
                     MessageBox.Show("Leider ist die Darstellung zu groß!", "Darstellung nicht möglich", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    errorIndizes.Add(form.selectedIndex);
-                    form = new AusgabeForm(list, vereinfachteTerme, errorIndizes, form.lastIndex);
+                    errorIndizes.Add(form.SelectedIndex);
+                    form = new AusgabeForm(list, vereinfachteTerme, errorIndizes, form.LastIndex);
                 }
             }
     
@@ -178,15 +178,15 @@ namespace BFEasier
             QuineMcCluskey qmc;
             string tempString = "";
 
-            System.Threading.Thread thread = new System.Threading.Thread(Waiting.wait);
+            System.Threading.Thread thread = new System.Threading.Thread(Waiting.Wait);
             thread.Start();
 
             // Für jede Ausgangsvaribale den Term vereinfachen
             for (int i = 0; i < fTabelle.AnzahlAusgabevariablen; i++)
             {
                 // Terme auslesen und vereinfachen
-                qmc = new QuineMcCluskey(fTabelle.gibMinterme(i));
-                vereinfachteTerme = qmc.vereinfache();
+                qmc = new QuineMcCluskey(fTabelle.GibMinterme(i));
+                vereinfachteTerme = qmc.Vereinfache();
 
                 // Vereinfachten Term in den temporären String schreiben
                 tempString += Properties.Settings.Default.ausChar + (i + 1).ToString() + " = ";

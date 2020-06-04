@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace BFEasier
+﻿namespace BFEasier
 {
+    using System;
+    using System.Collections;
+
     public class QuineMcCluskey
     {
         // Array von ArrayLists zur Sortierung der Terme nach den Graden
-        private ArrayList[] grade;
+        private readonly ArrayList[] grade;
         // Anzahl der Minterme in grade
-        private int anzMins;
+        private readonly Int32 anzMins;
         // Speichert, ob das Objekt Terme hat
-        private bool hat_Terme;
+        private Boolean hat_Terme;
 
         /// <summary>
         /// Konstruktor für die rekursiven Aufrufe zur Berechnung der Primimplikanten
         /// </summary>
         /// <param name="grade">Anzahl der möglichen Grade der Terme</param>
-        public QuineMcCluskey(int grade)
+        public QuineMcCluskey(Int32 grade)
         {
             this.grade = new ArrayList[grade];
-            for (int i = 0; i < grade; i++)
+            for (Int32 i = 0; i < grade; i++)
             {
                 this.grade[i] = new ArrayList();
             }
@@ -40,17 +37,19 @@ namespace BFEasier
             {
                 hat_Terme = true;
                 grade = new ArrayList[minterme[0].Laenge + 1];
-                for (int i = 0; i < grade.Length; i++)
+                for (Int32 i = 0; i < grade.Length; i++)
                 {
                     grade[i] = new ArrayList();
                 }
-                for (int i = 0; i < minterme.Length; i++)
+                for (Int32 i = 0; i < minterme.Length; i++)
                 {
                     grade[minterme[i].Grad].Add(minterme[i]);
                 }
             }
             else
+            {
                 grade = null;
+            }
         }
 
         /// <summary>
@@ -58,11 +57,14 @@ namespace BFEasier
         /// und sortiert ihn entsprechend des Grades ein
         /// </summary>
         /// <param name="term">Objekt der Klasse Term, dass hinzugefügt werden soll</param>
-        public void termHinzufuegen(Term term)
+        public void TermHinzufuegen(Term term)
         {
             // Noch nicht enthalten?
             if (!term.IsIn(grade[term.Grad]))
+            {
                 grade[term.Grad].Add(term);
+            }
+
             hat_Terme = true;
         }
 
@@ -70,7 +72,7 @@ namespace BFEasier
         /// Vereinfacht die Minterme
         /// </summary>
         /// <returns>Term-Array mit den vereinfachten Termen</returns>
-        public Term[] vereinfache()
+        public Term[] Vereinfache()
         {
             // Falls keine Minterme vorhanden ist der Term immer 0
             // Tritt ein, wenn alle Ausgabewerte 0 sind
@@ -81,7 +83,7 @@ namespace BFEasier
             }
 
             // Primimplikanten ermitteln
-            Term[] primimplikanten = berechnePrimimplikanten();
+            Term[] primimplikanten = BerechnePrimimplikanten();
 
             // Falls keine Primimplikaten vorhanden sind ist der Term immer 0
             // Tritt ein, wenn Dont-Care-Terme vorhanden sind und alle anderen Ausgabewerte 0
@@ -91,7 +93,7 @@ namespace BFEasier
                 return nullterm;
             }
 
-            return termeAuswaehlen(primimplikanten);
+            return TermeAuswaehlen(primimplikanten);
 
         }
 
@@ -100,7 +102,7 @@ namespace BFEasier
         /// </summary>
         /// <param name="einzelSchritte">ArrayList, in der die Schritte gespeichert werden</param>
         /// <returns>Term-Array mit den vereinfachten Termen</returns>
-        public Term[] vereinfache(ref ArrayList einzelSchritte)
+        public Term[] Vereinfache(ref ArrayList einzelSchritte)
         {
             // Falls keine Minterme vorhanden ist der Term immer 0
             // Tritt ein, wenn alle Ausgabewerte 0 sind
@@ -111,7 +113,7 @@ namespace BFEasier
             }
 
             // Primimplikanten ermitteln
-            Term[] primimplikanten = berechnePrimimplikanten(ref einzelSchritte);
+            Term[] primimplikanten = BerechnePrimimplikanten(ref einzelSchritte);
 
             // Falls keine Primimplikaten vorhanden sind ist der Term immer 0
             // Tritt ein, wenn Dont-Care-Terme vorhanden sind und alle anderen Ausgabewerte 0
@@ -121,7 +123,7 @@ namespace BFEasier
                 return nullterm;
             }
 
-            Term[] vereinfachteTerme = termeAuswaehlen(primimplikanten);
+            Term[] vereinfachteTerme = TermeAuswaehlen(primimplikanten);
 
             return vereinfachteTerme;
         }
@@ -132,16 +134,16 @@ namespace BFEasier
         /// </summary>
         /// <param name="primimplikanten">Term-Array mit den Primimplikanten</param>
         /// <returns>Term-Array mit der kürzesten Kombination von Termen</returns>
-        private Term[] termeAuswaehlen(Term[] primimplikanten)
+        private Term[] TermeAuswaehlen(Term[] primimplikanten)
         {
             #region Alle wesentlichen Primimplikanten und die schon abgedeckten Minterme ermitteln
-            ArrayList abgedeckteMinterme = new ArrayList();
-            ArrayList alleMinterme = new ArrayList();
-            ArrayList wesentlichePrimimplikanten = new ArrayList();
-            ArrayList dontCares = new ArrayList();
+            var abgedeckteMinterme = new ArrayList();
+            var alleMinterme = new ArrayList();
+            var wesentlichePrimimplikanten = new ArrayList();
+            var dontCares = new ArrayList();
             Term tempPrimimplikant = null;
-            int anzahlPrimimplikaten;
-            for (int i = 0; i < grade.Length; i++)
+            Int32 anzahlPrimimplikaten;
+            for (Int32 i = 0; i < grade.Length; i++)
             {
                 foreach (Term minterm in grade[i])
                 {
@@ -155,13 +157,15 @@ namespace BFEasier
 
                     // Bereits abgedeckte Minterme überspringen
                     if (abgedeckteMinterme.Contains(minterm.Minterme[0]))
+                    {
                         continue;
+                    }
 
                     // Für jeden Primimplikanten überprüfen, ob er den aktuellen Minterm abdeckt
                     anzahlPrimimplikaten = 0;
                     foreach (Term primimplikant in primimplikanten)
                     {
-                        for (int j = 0; j < primimplikant.Minterme.Length; j++)
+                        for (Int32 j = 0; j < primimplikant.Minterme.Length; j++)
                         {
                             if (primimplikant.Minterme[j] == minterm.Minterme[0])
                             {
@@ -179,10 +183,12 @@ namespace BFEasier
                     {
                         wesentlichePrimimplikanten.Add(tempPrimimplikant);
                         // Alle vom Primimplikanten abgedeckten Minterme der Menge der abgedeckten Minterme hinzufügen
-                        for (int j = 0; j < tempPrimimplikant.Minterme.Length; j++)
+                        for (Int32 j = 0; j < tempPrimimplikant.Minterme.Length; j++)
                         {
                             if (!abgedeckteMinterme.Contains(tempPrimimplikant.Minterme[j]))
+                            {
                                 abgedeckteMinterme.Add(tempPrimimplikant.Minterme[j]);
+                            }
                         }
                     }
                 }
@@ -190,23 +196,23 @@ namespace BFEasier
             #endregion
 
             #region Noch nicht abgedeckte Minterme ermitteln
-            ArrayList restMins = new ArrayList();
-            for (int i = 0; i < anzMins; i++)
+            var restMins = new ArrayList();
+            for (Int32 i = 0; i < anzMins; i++)
             {
-                if (!abgedeckteMinterme.Contains((int)alleMinterme[i]) && !dontCares.Contains((int)alleMinterme[i]))
+                if (!abgedeckteMinterme.Contains((Int32)alleMinterme[i]) && !dontCares.Contains((Int32)alleMinterme[i]))
                 {
-                    restMins.Add((int)alleMinterme[i]);
+                    restMins.Add((Int32)alleMinterme[i]);
                 }
             }
             #endregion
 
             #region Restliche Primimplikanten ermitteln
-            ArrayList restterme = new ArrayList();
+            var restterme = new ArrayList();
             foreach (Term term in primimplikanten)
             {
                 if (!term.IsIn(wesentlichePrimimplikanten))
                 {
-                    foreach (int i in term.Minterme)
+                    foreach (Int32 i in term.Minterme)
                     {
                         if (restMins.Contains(i) && !term.IsIn(restterme))
                         {
@@ -221,7 +227,7 @@ namespace BFEasier
             #region Ggf besten Restterme ermitteln
             if (restMins.Count != 0)
             {
-                ArrayList bestRest = optimiereRest(restMins, restterme);
+                ArrayList bestRest = OptimiereRest(restMins, restterme);
                 foreach (Term term in bestRest)
                 {
                     wesentlichePrimimplikanten.Add(term);
@@ -238,43 +244,46 @@ namespace BFEasier
         /// <param name="restMins">ArrayList mit den Indizes der restlichen Minterme</param>
         /// <param name="restPrimimplikanten">ArrayList mit den restlichen Primimplikanten</param>
         /// <returns></returns>
-        private ArrayList optimiereRest(ArrayList restMins, ArrayList restPrimimplikanten)
+        private ArrayList OptimiereRest(ArrayList restMins, ArrayList restPrimimplikanten)
         {
             // Wenn keine Minterme mehr übrig, die Rekursion abbrechen
             if (restMins.Count == 0)
+            {
                 return new ArrayList();
+            }
 
             ArrayList nextRestMins, nextRestPrimimplikanten;
-            ArrayList bestRest = new ArrayList();
-            int min = berechneLaenge(restPrimimplikanten);
-            bool inRest = false;
-            foreach (int minterm in restMins)
+            var bestRest = new ArrayList();
+            Int32 min = BerechneLaenge(restPrimimplikanten);
+            foreach (Int32 minterm in restMins)
             {
                 foreach (Term primimplikant in restPrimimplikanten)
                 {
                     // Überprüft für jeden Minterm, ob er in einem Primimplikaten enthalten
-                    for (int j = 0; j < primimplikant.Minterme.Length; j++)
+                    for (Int32 j = 0; j < primimplikant.Minterme.Length; j++)
                     {
                         if (primimplikant.Minterme[j] == minterm)
                         {
                             // Die Minterme für den nächsten Rekursionsschritt kopieren und die abgedeckten Minterme entfernen
                             nextRestMins = new ArrayList(restMins);
-                            foreach (int minTerm in primimplikant.Minterme)
+                            foreach (Int32 minTerm in primimplikant.Minterme)
                             {
                                 nextRestMins.Remove(minTerm);
                             }
 
                             // Alle Primimplikanten, die noch Minterme abdecken für den nächsten Rekursionsschritt kopieren
                             nextRestPrimimplikanten = new ArrayList();
-                            foreach ( Term nextPrimimplikant in restPrimimplikanten )
+                            foreach (Term nextPrimimplikant in restPrimimplikanten)
                             {
                                 // Den gerade gewählten Primimplikanten überspringen
                                 if (nextPrimimplikant == primimplikant)
+                                {
                                     continue;
+                                }
 
-                                inRest = false;
+                                Boolean inRest = false;
                                 // Deckt der Primimplikant noch Minterme ab?
-                                foreach (int minTerm in nextPrimimplikant.Minterme)
+                                foreach (Int32 minTerm in nextPrimimplikant.Minterme)
                                 {
                                     if (nextRestMins.Contains(minTerm))
                                     {
@@ -290,14 +299,14 @@ namespace BFEasier
                             }
 
                             // Den Rest optimieren und den aktuellen 
-                            nextRestPrimimplikanten = optimiereRest(nextRestMins, nextRestPrimimplikanten);
+                            nextRestPrimimplikanten = OptimiereRest(nextRestMins, nextRestPrimimplikanten);
                             nextRestPrimimplikanten.Add(primimplikant);
 
                             // Überprüfen, ob die Kombination kürzer besser ist als das bisher kürzeste Kombination
-                            if (berechneLaenge(nextRestPrimimplikanten) < min)
+                            if (BerechneLaenge(nextRestPrimimplikanten) < min)
                             {
                                 // Wenn ja, Werte der Kombination speichern
-                                min = berechneLaenge(nextRestPrimimplikanten);
+                                min = BerechneLaenge(nextRestPrimimplikanten);
                                 bestRest = new ArrayList(nextRestPrimimplikanten);
                             }
                             // Die Schleife abbrechen, da der Minterm schon enthalten war
@@ -314,11 +323,14 @@ namespace BFEasier
         /// </summary>
         /// <param name="terme">ArrayList, mit den Term-Objekten, die betrachtet werden sollen</param>
         /// <returns>Anzahl der Eingangsvariablen</returns>
-        private int berechneLaenge(ArrayList terme)
+        private Int32 BerechneLaenge(ArrayList terme)
         {
-            int laenge = 0;
-            for (int i = 0; i < terme.Count; i++)
+            Int32 laenge = 0;
+            for (Int32 i = 0; i < terme.Count; i++)
+            {
                 laenge += ((Term)terme[i]).AnzahlEingabevariablen;
+            }
+
             return laenge;
         }
 
@@ -326,17 +338,18 @@ namespace BFEasier
         /// Berechnet die Primimplikanten der Terme und gibt sie zurück
         /// </summary>
         /// <returns>Term-Array mit den Primimplikanten</returns>
-        public Term[] berechnePrimimplikanten()
+        public Term[] BerechnePrimimplikanten()
         {
             // Falls keine Terme vorhanden sind, Array ohne Elemente zurückgeben
             if (!hat_Terme)
+            {
                 return new Term[0];
-            QuineMcCluskey qmc;
-            ArrayList primimplikanten;
-            subBerechnePrimimplikanten(out qmc, out primimplikanten);
+            }
+
+            SubBerechnePrimimplikanten(out QuineMcCluskey qmc, out ArrayList primimplikanten);
 
             // Primimplikanten der nächsten Stufe ermitteln
-            Term[] returner = qmc.berechnePrimimplikanten();
+            Term[] returner = qmc.BerechnePrimimplikanten();
             foreach (Term term in returner)
             {
                 // die Primimplikanten der aktuellen Stufe hinzufügen
@@ -347,13 +360,13 @@ namespace BFEasier
             return (Term[])primimplikanten.ToArray(typeof(Term));
         }
 
-        private void subBerechnePrimimplikanten(out QuineMcCluskey qmc, out ArrayList primimplikanten)
+        private void SubBerechnePrimimplikanten(out QuineMcCluskey qmc, out ArrayList primimplikanten)
         {
             qmc = new QuineMcCluskey(grade.Length - 1);
 
             primimplikanten = new ArrayList();
 
-            for (int i = 0; i < grade.Length; i++)
+            for (Int32 i = 0; i < grade.Length; i++)
             {
                 foreach (Term term1 in grade[i])
                 {
@@ -363,10 +376,10 @@ namespace BFEasier
                         foreach (Term term2 in grade[i + 1])
                         {
                             // Alle Elemente des aktuellen Grades mit denen des nächsthöheren Grades vergleichen
-                            if (term1.aehnlich(term2))
+                            if (term1.IstAehnlichWie(term2))
                             {
                                 // Ähnliche Terme zusammenfassen und als keine Primimplikanten markieren
-                                qmc.termHinzufuegen(term1 + term2);
+                                qmc.TermHinzufuegen(term1 + term2);
                                 term1.Ist_Primimplikant = false;
                                 term2.Ist_Primimplikant = false;
                             }
@@ -374,8 +387,10 @@ namespace BFEasier
                     }
                     // Falls der Term Primimplikant ist
                     if (term1.Ist_Primimplikant)
+                    {
                         // den Term der Menge der Primimplikanten hinzufügen
                         primimplikanten.Add(term1);
+                    }
                 }
             }
         }
@@ -385,20 +400,22 @@ namespace BFEasier
         /// </summary>
         /// <param name="einzelSchritte">ArrayList, in der die Schritte gespeichert werden</param>
         /// <returns>Term-Array mit den Primimplikanten</returns>
-        public Term[] berechnePrimimplikanten(ref ArrayList einzelSchritte)
+        public Term[] BerechnePrimimplikanten(ref ArrayList einzelSchritte)
         {
             // Falls keine Terme vorhanden sind, Array ohne Elemente zurückgeben
             if (!hat_Terme)
+            {
                 return new Term[0];
+            }
             else
+            {
                 einzelSchritte.Add(grade);
+            }
 
-            QuineMcCluskey qmc;
-            ArrayList primimplikanten;
-            subBerechnePrimimplikanten(out qmc, out primimplikanten);
+            SubBerechnePrimimplikanten(out QuineMcCluskey qmc, out ArrayList primimplikanten);
 
             // Primimplikanten der nächsten Stufe ermitteln
-            Term[] returner = qmc.berechnePrimimplikanten(ref einzelSchritte);
+            Term[] returner = qmc.BerechnePrimimplikanten(ref einzelSchritte);
             foreach (Term term in returner)
             {
                 // die Primimplikanten der aktuellen Stufe hinzufügen

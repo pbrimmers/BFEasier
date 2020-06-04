@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Windows.Forms;
-
-namespace BFEasier
+﻿namespace BFEasier
 {
-    class Waiting
+    internal class Waiting
     {
         /// <summary>
-        /// Zeigt einen Form, dass gearbeite wird
+        /// Zeigt einen Form, dass gearbeitet wird
         /// </summary>
-        public static void wait()
+        public static void Wait()
         {
             try
             {
-                WaitingForm form = new WaitingForm();
+                var form = new WaitingForm();
                 form.ShowDialog();
             }
             catch

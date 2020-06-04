@@ -67,13 +67,13 @@ namespace BFEasier
                 try
                 {
                     FormTabelle form = new FormTabelle(new Funktionstabelle(anzEinVar, anzAusVar));
-                    this.Visible = false;
+                    Visible = false;
                     form.ShowDialog();
                     Close();
                 }
                 catch
                 {
-                    this.Visible = true;
+                    Visible = true;
                     MessageBox.Show("Zu viele Ausgabegrößen!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }

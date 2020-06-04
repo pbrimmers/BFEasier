@@ -1,98 +1,70 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace BFEasier
+﻿namespace BFEasier
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+
     public class Term
     {
-        private bool dontcare;
-        private int[] input;
-        private int grad;
-        private int[] minterme;
-        public bool Ist_Null;
-        public bool Ist_Primimplikant;
+        private readonly Int32[] input;
+        public Boolean Ist_Null;
+        public Boolean Ist_Primimplikant;
 
-        public bool DontCare
+        public Boolean DontCare { get; }
+
+        public Int32 this[Int32 pos] => input[pos];
+
+        public Int32 Laenge => input.Length;
+
+        public Int32 AnzahlEingabevariablen
         {
             get
             {
-                return dontcare;
-            }
-        }
-
-        public int this[int pos]
-        {
-            get
-            {
-                return input[pos];
-            }
-        }
-
-        public int Laenge
-        {
-            get
-            {
-                return input.Length;
-            }
-        }
-
-        public int AnzahlEingabevariablen
-        {
-            get
-            {
-                int count = 0;
-                foreach (int i in input)
+                Int32 count = 0;
+                foreach (Int32 i in input)
                 {
                     if (i >= 0)
+                    {
                         count++;
+                    }
                 }
                 return count;
             }
         }
 
-        public int Grad
-        {
-            get
-            {
-                return grad;
-            }
-        }
+        public Int32 Grad { get; }
 
         /// <summary>
         /// Int-Array mit den Indizes der Minterme
         /// </summary>
-        public int[] Minterme
-        {
-            get
-            {
-                return minterme;
-            }
-        }
+        public Int32[] Minterme { get; }
 
         /// <summary>
         /// Konstruktor für Minterme
         /// </summary>
         /// <param name="input">Int-Array mit den Werten der Eingangsvariablen</param>
         /// <param name="dontcare">Boolscher Wert, ob es sich um einen Don't-Care-Term handelt</param>
-        public Term(int[] input, bool dontcare)
+        public Term(Int32[] input, Boolean dontcare)
         {
-            this.dontcare = dontcare;
-            grad = 0;
-            this.input = new int[input.Length];
-            for (int i = 0; i < input.Length; i++)
+            DontCare = dontcare;
+            Grad = 0;
+            this.input = new Int32[input.Length];
+            for (Int32 i = 0; i < input.Length; i++)
             {
                 this.input[i] = input[i];
-                if(input[i] == 1)
-                    grad++;
+                if (input[i] == 1)
+                {
+                    Grad++;
+                }
             }
 
-            minterme = new int[1];
-            minterme[0] = 0;
-            for (int i = 0; i < input.Length; i++)
-                minterme[0] += input[i] * (int)Math.Pow(2, (input.Length - i - 1));
+            Minterme = new Int32[1];
+            Minterme[0] = 0;
+            for (Int32 i = 0; i < input.Length; i++)
+            {
+                Minterme[0] += input[i] * (Int32)Math.Pow(2, input.Length - i - 1);
+            }
+
             Ist_Primimplikant = !dontcare; // Dont-Care-Terme können keine Primimplikanten sein
             Ist_Null = false;
         }
@@ -103,23 +75,25 @@ namespace BFEasier
         /// <param name="input">Int-Array mit den Werten der Eingangsvariablen bzw -1 für eine nicht mehr vorhandene Variable</param>
         /// <param name="dontcare">Boolscher Wert, ob es sich um einen Term handelt, der nur Don't-Care-Term abdeckt</param>
         /// <param name="minTerme">Int-Array mit den Indizes der abgedeckten Mintermen</param>
-        public Term(int[] input, bool dontcare, int[] minTerme)
+        public Term(Int32[] input, Boolean dontcare, Int32[] minTerme)
         {
-            grad = 0;
-            this.input = new int[input.Length];
-            for (int i = 0; i < input.Length; i++)
+            Grad = 0;
+            this.input = new Int32[input.Length];
+            for (Int32 i = 0; i < input.Length; i++)
             {
                 this.input[i] = input[i];
-                if(input[i] == 1)
-                    grad++;
+                if (input[i] == 1)
+                {
+                    Grad++;
+                }
             }
 
-            this.minterme = new int[minTerme.Length];
-            for (int i = 0; i < minTerme.Length; i++)
+            Minterme = new Int32[minTerme.Length];
+            for (Int32 i = 0; i < minTerme.Length; i++)
             {
-                this.minterme[i] = minTerme[i];
+                Minterme[i] = minTerme[i];
             }
-            this.dontcare = dontcare;
+            DontCare = dontcare;
             Ist_Primimplikant = !dontcare; // Dont-Care-Terme können keine Primimplikanten sein
             Ist_Null = false;
         }
@@ -129,17 +103,23 @@ namespace BFEasier
         /// </summary>
         /// <param name="term">Term-Objekt mit dem verglichen wird</param>
         /// <returns>'true' falls sich die Terme nur in einer Negation unterscheiden, anderfalls 'false'</returns>
-        public bool aehnlich(Term term)
+        public Boolean IstAehnlichWie(Term term)
         {
-            bool temp = false;
-            for (int i = 0; i < input.Length; i++)
+            Boolean temp = false;
+            for (Int32 i = 0; i < input.Length; i++)
             {
                 if (((input[i] != -1) && (term[i] == -1)) || ((input[i] == -1) && (term[i] != -1)))
+                {
                     return false;
+                }
+
                 if ((input[i] != -1) && (term[i] != -1) && (term[i] != input[i]))
                 {
                     if (temp == true)
+                    {
                         return false;
+                    }
+
                     temp = true;
                 }
             }
@@ -150,15 +130,17 @@ namespace BFEasier
         /// Wandelt den Term in einen String um
         /// </summary>
         /// <returns>String-Objekt mit dem Inhalt des Terms</returns>
-        public override string ToString()
+        public override String ToString()
         {
             if (Ist_Null)
+            {
                 return "0";
+            }
 
-            string term = "";
-            int nullCounter = 0;
+            String term = "";
+            Int32 nullCounter = 0;
 
-            for (int i = 0; i < input.Length; i++)
+            for (Int32 i = 0; i < input.Length; i++)
             {
                 if (input[i] == 0)
                 {
@@ -175,7 +157,9 @@ namespace BFEasier
             }
 
             if (nullCounter == input.Length)
+            {
                 term = "1";
+            }
 
             return term;
         }
@@ -186,18 +170,22 @@ namespace BFEasier
         /// <param name="term1">Objekt der Klasse Term</param>
         /// <param name="term2">Objekt der Klasse Term</param>
         /// <returns>True, wenn die Terme gleich sind, andernfalls false</returns>
-        public static bool operator ==(Term term1, Term term2)
+        public static Boolean operator ==(Term term1, Term term2)
         {
             // Bei ungleicher Länge können die Terme nicht gleich sein
             if (term1.Laenge != term2.Laenge)
+            {
                 return false;
+            }
 
             // Alle Eingangsvariablen auf Gleichheit überprüfen
-            for (int i = 0; i < term1.Laenge; i++)
+            for (Int32 i = 0; i < term1.Laenge; i++)
             {
                 // Ist ein Eingabeparameter anders sind die Terme nicht gleich
                 if (term1[i] != term2[i])
+                {
                     return false;
+                }
             }
             return true;
         }
@@ -208,7 +196,7 @@ namespace BFEasier
         /// <param name="term1">Objekt der Klasse Term</param>
         /// <param name="term2">Objekt der Klasse Term</param>
         /// <returns>True, wenn die Terme ungleich sind, andernfalls false</returns>
-        public static bool operator !=(Term term1, Term term2)
+        public static Boolean operator !=(Term term1, Term term2)
         {
             return !(term1 == term2);
         }
@@ -221,32 +209,37 @@ namespace BFEasier
         /// <returns>Den zusammengefügten Term</returns>
         public static Term operator +(Term term1, Term term2)
         {
-            int[] input = new int[term1.Laenge];
+            Int32[] input = new Int32[term1.Laenge];
             // Gleichen Variablen übernehmen und unterschiedliche als nicht vorhanden (-1) setzen
-            for(int i = 0; i < term1.Laenge; i++)
+            for (Int32 i = 0; i < term1.Laenge; i++)
             {
                 if (term1[i] == term2[i])
+                {
                     input[i] = term1[i];
+                }
                 else
+                {
                     input[i] = -1;
-
+                }
             }
 
             // Minterme aus des ersten Terms übernehmen und nicht enthaltene des zweiten Terms hinzufügen
-            ArrayList tempMinterme = new ArrayList();
-            foreach (int i in term1.minterme)
+            var tempMinterme = new ArrayList();
+            foreach (Int32 i in term1.Minterme)
             {
                 tempMinterme.Add(i);
             }
-            foreach (int i in term2.minterme)
+            foreach (Int32 i in term2.Minterme)
             {
                 if (!tempMinterme.Contains(i))
+                {
                     tempMinterme.Add(i);
+                }
             }
             // Minterme sortieren
             tempMinterme.Sort();
 
-            Term tempTerm = new Term(input, term1.DontCare && term2.DontCare, (int[])tempMinterme.ToArray(typeof(int)));
+            var tempTerm = new Term(input, term1.DontCare && term2.DontCare, (Int32[])tempMinterme.ToArray(typeof(Int32)));
             return tempTerm;
         }
 
@@ -255,12 +248,14 @@ namespace BFEasier
         /// </summary>
         /// <param name="list">Zu überprüfendes Array mit ausschließlich Term-Objekten</param>
         /// <returns>True, falls der Term enthalten ist, andernfalls False</returns>
-        public bool IsIn(ArrayList list)
+        public Boolean IsIn(ArrayList list)
         {
             foreach (Term term in list)
             {
                 if (term == this)
+                {
                     return true;
+                }
             }
             return false;
         }
@@ -271,45 +266,42 @@ namespace BFEasier
         /// <returns>Term der 0 ist</returns>
         public static Term Nullterm()
         {
-            int[] input = { -1 };
-            Term term = new Term(input, false, input)
+            Int32[] input = { -1 };
+            var term = new Term(input, false, input)
             {
                 Ist_Null = true
             };
             return term;
         }
 
-        public override bool Equals(object obj)
+        public override Boolean Equals(Object obj)
         {
             var term = obj as Term;
             return term != null &&
-                   dontcare == term.dontcare &&
-                   EqualityComparer<int[]>.Default.Equals(input, term.input) &&
-                   grad == term.grad &&
-                   EqualityComparer<int[]>.Default.Equals(minterme, term.minterme) &&
+                   DontCare == term.DontCare &&
+                   EqualityComparer<Int32[]>.Default.Equals(input, term.input) &&
+                   Grad == term.Grad &&
+                   EqualityComparer<Int32[]>.Default.Equals(Minterme, term.Minterme) &&
                    Ist_Null == term.Ist_Null &&
                    Ist_Primimplikant == term.Ist_Primimplikant &&
                    DontCare == term.DontCare &&
                    Laenge == term.Laenge &&
                    AnzahlEingabevariablen == term.AnzahlEingabevariablen &&
                    Grad == term.Grad &&
-                   EqualityComparer<int[]>.Default.Equals(Minterme, term.Minterme);
+                   EqualityComparer<Int32[]>.Default.Equals(Minterme, term.Minterme);
         }
 
-        public override int GetHashCode()
+        public override Int32 GetHashCode()
         {
-            var hashCode = 634771311;
-            hashCode = hashCode * -1521134295 + dontcare.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<int[]>.Default.GetHashCode(input);
-            hashCode = hashCode * -1521134295 + grad.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<int[]>.Default.GetHashCode(minterme);
+            Int32 hashCode = 1396721366;
+            hashCode = hashCode * -1521134295 + EqualityComparer<Int32[]>.Default.GetHashCode(input);
             hashCode = hashCode * -1521134295 + Ist_Null.GetHashCode();
             hashCode = hashCode * -1521134295 + Ist_Primimplikant.GetHashCode();
             hashCode = hashCode * -1521134295 + DontCare.GetHashCode();
             hashCode = hashCode * -1521134295 + Laenge.GetHashCode();
             hashCode = hashCode * -1521134295 + AnzahlEingabevariablen.GetHashCode();
             hashCode = hashCode * -1521134295 + Grad.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<int[]>.Default.GetHashCode(Minterme);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Int32[]>.Default.GetHashCode(Minterme);
             return hashCode;
         }
     }

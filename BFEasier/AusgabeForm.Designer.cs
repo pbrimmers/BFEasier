@@ -69,7 +69,7 @@
             this.comboBox.Name = "comboBox";
             this.comboBox.Size = new System.Drawing.Size(94, 21);
             this.comboBox.TabIndex = 1;
-            this.comboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox_SelectedIndexChanged);
+            this.comboBox.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -97,7 +97,7 @@
             this.buttonSpeichern.TabIndex = 4;
             this.buttonSpeichern.Text = "Speichern";
             this.buttonSpeichern.UseVisualStyleBackColor = true;
-            this.buttonSpeichern.Click += new System.EventHandler(this.buttonSpeichern_Click);
+            this.buttonSpeichern.Click += new System.EventHandler(this.ButtonSpeichern_Click);
             // 
             // saveFileDialog
             // 
