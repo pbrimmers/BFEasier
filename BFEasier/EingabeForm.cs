@@ -6,12 +6,11 @@ namespace BFEasier
     public partial class EingabeForm : Form
     {
         private readonly Boolean first;
+
         // Anzahl der Ein- bzw Ausgabeparameter
-        private Int32 anzEinVar, anzAusVar;
+        public Int32 AnzEinVar { get; private set; }
 
-        public Int32 AnzEinVar => anzEinVar;
-
-        public Int32 AnzAusVar => anzAusVar;
+        public Int32 AnzAusVar { get; private set; }
 
         /// <summary>
         /// Konstruktor um eine neue Funktionstabelle zu erstellen
@@ -42,13 +41,13 @@ namespace BFEasier
         /// <param name="e">Objekt der Klasse 'EventArgs'</param>
         private void buttonErstellen_Click(Object sender, EventArgs e)
         {
-            anzEinVar = comboBoxEin.SelectedIndex + 1;
-            anzAusVar = (Int32)numericUpDownAus.Value;
+            AnzEinVar = comboBoxEin.SelectedIndex + 1;
+            AnzAusVar = (Int32)numericUpDownAus.Value;
             if (first)
             {
                 try
                 {
-                    var form = new FormTabelle(new Funktionstabelle(anzEinVar, anzAusVar));
+                    var form = new FormTabelle(new Funktionstabelle(AnzEinVar, AnzAusVar));
                     Visible = false;
                     form.ShowDialog();
                     Close();

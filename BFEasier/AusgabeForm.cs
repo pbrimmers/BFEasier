@@ -88,8 +88,9 @@
         private void ComboBox_SelectedIndexChanged(Object sender, EventArgs e)
         {
             // Wartebalken anzeigen
-            var thread = new System.Threading.Thread(Waiting.Wait);
-            thread.Start();
+            // TODO: Run background TASK with cancellation token
+            //var thread = new System.Threading.Thread(Waiting.Wait);
+            //thread.Start();
 
             // Neue Ausgabe erzeugen
             if ((Int32)ausgabeliste[comboBox.SelectedIndex] == -1)
@@ -107,8 +108,8 @@
             letzteSelectedIndizes[0] = letzteSelectedIndizes[1];
             letzteSelectedIndizes[1] = comboBox.SelectedIndex;
 
-            System.Threading.Thread.Sleep(100);
-            thread.Abort();
+            //System.Threading.Thread.Sleep(100);
+            //thread.Abort();
         }
 
         /// <summary>
@@ -116,10 +117,11 @@
         /// </summary>
         private void AusgabeForm_SizeChanged(Object sender, EventArgs e)
         {
-            panelAusgabe.Size = new Size(Size.Width - panelSizeDiff.Width, Size.Height - panelSizeDiff.Height);
-            comboBox.Location = new Point(Size.Width - comboLocationDiff.Width, comboBox.Location.Y);
-            buttonSpeichern.Location = new Point(Size.Width - buttonLocationDiff.Width, buttonSpeichern.Location.Y);
-            label3.Location = new Point(Size.Width - labelLocationDiff.Width, label3.Location.Y);
+            // TODO: Add proper resize behaviour
+            //panelAusgabe.Size = new Size(Size.Width - panelSizeDiff.Width, Size.Height - panelSizeDiff.Height);
+            //comboBox.Location = new Point(Size.Width - comboLocationDiff.Width, comboBox.Location.Y);
+            //buttonSpeichern.Location = new Point(Size.Width - buttonLocationDiff.Width, buttonSpeichern.Location.Y);
+            //label3.Location = new Point(Size.Width - labelLocationDiff.Width, label3.Location.Y);
         }
 
         /// <summary>

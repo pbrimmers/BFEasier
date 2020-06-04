@@ -46,16 +46,18 @@
             this.panelAusgabe.AutoScroll = true;
             this.panelAusgabe.BackColor = System.Drawing.Color.White;
             this.panelAusgabe.Controls.Add(this.pictureBoxAusgabe);
-            this.panelAusgabe.Location = new System.Drawing.Point(12, 50);
+            this.panelAusgabe.Location = new System.Drawing.Point(16, 77);
+            this.panelAusgabe.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelAusgabe.Name = "panelAusgabe";
-            this.panelAusgabe.Size = new System.Drawing.Size(440, 297);
+            this.panelAusgabe.Size = new System.Drawing.Size(587, 457);
             this.panelAusgabe.TabIndex = 0;
             // 
             // pictureBoxAusgabe
             // 
             this.pictureBoxAusgabe.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxAusgabe.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBoxAusgabe.Name = "pictureBoxAusgabe";
-            this.pictureBoxAusgabe.Size = new System.Drawing.Size(123, 125);
+            this.pictureBoxAusgabe.Size = new System.Drawing.Size(164, 192);
             this.pictureBoxAusgabe.TabIndex = 0;
             this.pictureBoxAusgabe.TabStop = false;
             // 
@@ -65,35 +67,39 @@
             this.comboBox.FormattingEnabled = true;
             this.comboBox.Items.AddRange(new object[] {
             "Übersicht"});
-            this.comboBox.Location = new System.Drawing.Point(358, 6);
+            this.comboBox.Location = new System.Drawing.Point(477, 9);
+            this.comboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(94, 21);
+            this.comboBox.Size = new System.Drawing.Size(124, 28);
             this.comboBox.TabIndex = 1;
             this.comboBox.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 6);
+            this.label1.Location = new System.Drawing.Point(16, 9);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(213, 13);
+            this.label1.Size = new System.Drawing.Size(307, 20);
             this.label1.TabIndex = 2;
             this.label1.Text = "Blau = Primimplikant  -  Orange = Don\'t Care";
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(12, 20);
+            this.label2.Location = new System.Drawing.Point(16, 31);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(264, 27);
+            this.label2.Size = new System.Drawing.Size(352, 42);
             this.label2.TabIndex = 3;
             this.label2.Text = "In den Klammern steht die numerische Entsprechung des Minterms bzw die der abgede" +
-                "ckten Minterme";
+    "ckten Minterme";
             // 
             // buttonSpeichern
             // 
-            this.buttonSpeichern.Location = new System.Drawing.Point(282, 21);
+            this.buttonSpeichern.Location = new System.Drawing.Point(376, 32);
+            this.buttonSpeichern.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonSpeichern.Name = "buttonSpeichern";
-            this.buttonSpeichern.Size = new System.Drawing.Size(70, 23);
+            this.buttonSpeichern.Size = new System.Drawing.Size(93, 35);
             this.buttonSpeichern.TabIndex = 4;
             this.buttonSpeichern.Text = "Speichern";
             this.buttonSpeichern.UseVisualStyleBackColor = true;
@@ -108,17 +114,18 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(297, 7);
+            this.label3.Location = new System.Drawing.Point(396, 11);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
+            this.label3.Size = new System.Drawing.Size(59, 20);
             this.label3.TabIndex = 5;
             this.label3.Text = "Als Bild";
             // 
             // AusgabeForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(464, 359);
+            this.ClientSize = new System.Drawing.Size(619, 552);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.buttonSpeichern);
             this.Controls.Add(this.label2);
@@ -126,6 +133,7 @@
             this.Controls.Add(this.comboBox);
             this.Controls.Add(this.panelAusgabe);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "AusgabeForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

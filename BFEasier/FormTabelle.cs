@@ -65,9 +65,10 @@
         /// <param name="e">Objekt der Klasse 'EventArgs'</param>
         private void FormTabelle_SizeChanged(Object sender, EventArgs e)
         {
-            groupBoxTabelle.Size = new Size(Size.Width - gruppeTabSize.Width, Size.Height - gruppeTabSize.Height);
-            panelTabelle.Size = new Size(groupBoxTabelle.Size.Width - panelTabSize.Width, groupBoxTabelle.Size.Height - panelTabSize.Height);
-            panelRechts.Location = new Point(Size.Width - panelFunkSize.Width, panelRechts.Location.Y);
+            // TODO: Add proper resize behaviour
+            //groupBoxTabelle.Size = new Size(Size.Width - gruppeTabSize.Width, Size.Height - gruppeTabSize.Height);
+            //panelTabelle.Size = new Size(groupBoxTabelle.Size.Width - panelTabSize.Width, groupBoxTabelle.Size.Height - panelTabSize.Height);
+            //panelRechts.Location = new Point(Size.Width - panelFunkSize.Width, panelRechts.Location.Y);
         }
 
         /// <summary>
@@ -132,8 +133,9 @@
             QuineMcCluskey qmc;
             var list = new System.Collections.ArrayList[fTabelle.AnzahlAusgabevariablen];
 
-            var thread = new System.Threading.Thread(Waiting.Wait);
-            thread.Start();
+            // TODO: Run background TASK with cancellation token
+            //var thread = new System.Threading.Thread(Waiting.Wait);
+            //thread.Start();
 
             // Für jede Ausgangsvariable den Term vereinfachen
             for (Int32 i = 0; i < fTabelle.AnzahlAusgabevariablen; i++)
@@ -144,8 +146,8 @@
                 vereinfachteTerme.Add(qmc.Vereinfache(ref list[i]));
             }
 
-            System.Threading.Thread.Sleep(100);
-            thread.Abort();
+            //System.Threading.Thread.Sleep(100);
+            //thread.Abort();
 
             // Ausgabe im Form
             var errorIndizes = new System.Collections.ArrayList();
@@ -177,8 +179,9 @@
             QuineMcCluskey qmc;
             String tempString = "";
 
-            var thread = new System.Threading.Thread(Waiting.Wait);
-            thread.Start();
+            // TODO: Run background TASK with cancellation token
+            //var thread = new System.Threading.Thread(Waiting.Wait);
+            //thread.Start();
 
             // Für jede Ausgangsvaribale den Term vereinfachen
             for (Int32 i = 0; i < fTabelle.AnzahlAusgabevariablen; i++)
@@ -197,8 +200,8 @@
                 tempString += "\r\n";
             }
 
-            System.Threading.Thread.Sleep(100);
-            thread.Abort();
+            //System.Threading.Thread.Sleep(100);
+            //thread.Abort();
 
             // Text in die Textbox schreiben
             textBoxAusgabe.Text = tempString;
