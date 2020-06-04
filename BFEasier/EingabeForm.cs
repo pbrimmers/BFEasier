@@ -1,35 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace BFEasier
 {
     public partial class EingabeForm : Form
     {
-        private bool first;
+        private readonly Boolean first;
         // Anzahl der Ein- bzw Ausgabeparameter
-        private int anzEinVar, anzAusVar;
+        private Int32 anzEinVar, anzAusVar;
 
-        public int AnzEinVar
-        {
-            get
-            {
-                return anzEinVar;
-            }
-        }
+        public Int32 AnzEinVar => anzEinVar;
 
-        public int AnzAusVar
-        {
-            get
-            {
-                return anzAusVar;
-            }
-        }
+        public Int32 AnzAusVar => anzAusVar;
 
         /// <summary>
         /// Konstruktor um eine neue Funktionstabelle zu erstellen
@@ -44,7 +26,7 @@ namespace BFEasier
         /// <summary>
         /// Konstruktor um Parameter zu ändern
         /// </summary>
-        public EingabeForm(int ein, int aus)
+        public EingabeForm(Int32 ein, Int32 aus)
         {
             InitializeComponent();
             first = false;
@@ -58,15 +40,15 @@ namespace BFEasier
         /// </summary>
         /// <param name="sender">Objekt, das diese Funktion aufruft</param>
         /// <param name="e">Objekt der Klasse 'EventArgs'</param>
-        private void buttonErstellen_Click(object sender, EventArgs e)
+        private void buttonErstellen_Click(Object sender, EventArgs e)
         {
             anzEinVar = comboBoxEin.SelectedIndex + 1;
-            anzAusVar = (int)numericUpDownAus.Value;
+            anzAusVar = (Int32)numericUpDownAus.Value;
             if (first)
             {
                 try
                 {
-                    FormTabelle form = new FormTabelle(new Funktionstabelle(anzEinVar, anzAusVar));
+                    var form = new FormTabelle(new Funktionstabelle(anzEinVar, anzAusVar));
                     Visible = false;
                     form.ShowDialog();
                     Close();
@@ -78,7 +60,9 @@ namespace BFEasier
                 }
             }
             else
+            {
                 Close();
+            }
         }
     }
 }
