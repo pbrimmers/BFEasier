@@ -113,18 +113,6 @@
         }
 
         /// <summary>
-        /// Positionen und Größen der einzelnen Objekte der Größe des Forms anpassen
-        /// </summary>
-        private void AusgabeForm_SizeChanged(Object sender, EventArgs e)
-        {
-            // TODO: Add proper resize behaviour
-            //panelAusgabe.Size = new Size(Size.Width - panelSizeDiff.Width, Size.Height - panelSizeDiff.Height);
-            //comboBox.Location = new Point(Size.Width - comboLocationDiff.Width, comboBox.Location.Y);
-            //buttonSpeichern.Location = new Point(Size.Width - buttonLocationDiff.Width, buttonSpeichern.Location.Y);
-            //label3.Location = new Point(Size.Width - labelLocationDiff.Width, label3.Location.Y);
-        }
-
-        /// <summary>
         /// Öffnet einen Dialog zum speichern der Ausgabe in einer Bilddatei und speichert sie dort
         /// </summary>
         private void ButtonSpeichern_Click(Object sender, EventArgs e)

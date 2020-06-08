@@ -46,10 +46,11 @@
             this.panelAusgabe.AutoScroll = true;
             this.panelAusgabe.BackColor = System.Drawing.Color.White;
             this.panelAusgabe.Controls.Add(this.pictureBoxAusgabe);
-            this.panelAusgabe.Location = new System.Drawing.Point(16, 77);
+            this.panelAusgabe.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelAusgabe.Location = new System.Drawing.Point(20, 80);
             this.panelAusgabe.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelAusgabe.Name = "panelAusgabe";
-            this.panelAusgabe.Size = new System.Drawing.Size(587, 457);
+            this.panelAusgabe.Size = new System.Drawing.Size(579, 452);
             this.panelAusgabe.TabIndex = 0;
             // 
             // pictureBoxAusgabe
@@ -63,11 +64,12 @@
             // 
             // comboBox
             // 
+            this.comboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox.FormattingEnabled = true;
             this.comboBox.Items.AddRange(new object[] {
             "Übersicht"});
-            this.comboBox.Location = new System.Drawing.Point(477, 9);
+            this.comboBox.Location = new System.Drawing.Point(475, 9);
             this.comboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBox.Name = "comboBox";
             this.comboBox.Size = new System.Drawing.Size(124, 28);
@@ -96,6 +98,7 @@
             // 
             // buttonSpeichern
             // 
+            this.buttonSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSpeichern.Location = new System.Drawing.Point(376, 32);
             this.buttonSpeichern.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonSpeichern.Name = "buttonSpeichern";
@@ -113,6 +116,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(396, 11);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -135,6 +139,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "AusgabeForm";
+            this.Padding = new System.Windows.Forms.Padding(20, 80, 20, 20);
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ausgabe";
