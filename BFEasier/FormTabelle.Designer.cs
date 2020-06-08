@@ -50,12 +50,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panelTabelle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabelle)).BeginInit();
             this.groupBoxTabelle.SuspendLayout();
             this.panelRechts.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelTabelle
@@ -63,19 +65,20 @@
             this.panelTabelle.AutoScroll = true;
             this.panelTabelle.BackColor = System.Drawing.Color.White;
             this.panelTabelle.Controls.Add(this.tabelle);
-            this.panelTabelle.Location = new System.Drawing.Point(8, 29);
+            this.panelTabelle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTabelle.Location = new System.Drawing.Point(4, 25);
             this.panelTabelle.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelTabelle.Name = "panelTabelle";
-            this.panelTabelle.Size = new System.Drawing.Size(381, 608);
+            this.panelTabelle.Size = new System.Drawing.Size(367, 609);
             this.panelTabelle.TabIndex = 0;
             // 
             // tabelle
             // 
             this.tabelle.BackColor = System.Drawing.Color.White;
-            this.tabelle.Location = new System.Drawing.Point(0, 0);
+            this.tabelle.Location = new System.Drawing.Point(6, 5);
             this.tabelle.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabelle.Name = "tabelle";
-            this.tabelle.Size = new System.Drawing.Size(349, 529);
+            this.tabelle.Size = new System.Drawing.Size(158, 196);
             this.tabelle.TabIndex = 0;
             this.tabelle.TabStop = false;
             this.tabelle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Tabelle_MouseClick);
@@ -84,11 +87,12 @@
             // groupBoxTabelle
             // 
             this.groupBoxTabelle.Controls.Add(this.panelTabelle);
-            this.groupBoxTabelle.Location = new System.Drawing.Point(16, 83);
+            this.groupBoxTabelle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxTabelle.Location = new System.Drawing.Point(314, 5);
             this.groupBoxTabelle.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBoxTabelle.Name = "groupBoxTabelle";
             this.groupBoxTabelle.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBoxTabelle.Size = new System.Drawing.Size(397, 646);
+            this.groupBoxTabelle.Size = new System.Drawing.Size(375, 639);
             this.groupBoxTabelle.TabIndex = 1;
             this.groupBoxTabelle.TabStop = false;
             this.groupBoxTabelle.Text = "Funktionstabelle";
@@ -156,16 +160,16 @@
             this.panelRechts.Controls.Add(this.label5);
             this.panelRechts.Controls.Add(this.groupBox2);
             this.panelRechts.Controls.Add(this.groupBox1);
-            this.panelRechts.Location = new System.Drawing.Point(413, 55);
+            this.panelRechts.Location = new System.Drawing.Point(4, 5);
             this.panelRechts.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelRechts.Name = "panelRechts";
-            this.panelRechts.Size = new System.Drawing.Size(311, 680);
+            this.panelRechts.Size = new System.Drawing.Size(302, 629);
             this.panelRechts.TabIndex = 7;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 585);
+            this.label6.Location = new System.Drawing.Point(8, 562);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 20);
@@ -174,7 +178,7 @@
             // 
             // buttonSpeichern
             // 
-            this.buttonSpeichern.Location = new System.Drawing.Point(71, 577);
+            this.buttonSpeichern.Location = new System.Drawing.Point(71, 554);
             this.buttonSpeichern.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonSpeichern.Name = "buttonSpeichern";
             this.buttonSpeichern.Size = new System.Drawing.Size(100, 35);
@@ -185,7 +189,7 @@
             // 
             // buttonParameterAendern
             // 
-            this.buttonParameterAendern.Location = new System.Drawing.Point(8, 34);
+            this.buttonParameterAendern.Location = new System.Drawing.Point(8, 11);
             this.buttonParameterAendern.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonParameterAendern.Name = "buttonParameterAendern";
             this.buttonParameterAendern.Size = new System.Drawing.Size(287, 35);
@@ -196,7 +200,7 @@
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(8, 498);
+            this.label5.Location = new System.Drawing.Point(8, 475);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(288, 66);
@@ -211,7 +215,7 @@
             this.groupBox2.Controls.Add(this.buttonSetzen);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.comboBoxWert);
-            this.groupBox2.Location = new System.Drawing.Point(8, 78);
+            this.groupBox2.Location = new System.Drawing.Point(8, 55);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -225,7 +229,7 @@
             this.groupBox1.Controls.Add(this.checkBoxAusfuehrlich);
             this.groupBox1.Controls.Add(this.textBoxAusgabe);
             this.groupBox1.Controls.Add(this.buttonVereinfache);
-            this.groupBox1.Location = new System.Drawing.Point(8, 203);
+            this.groupBox1.Location = new System.Drawing.Point(8, 180);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -294,22 +298,37 @@
             this.saveFileDialog1.OverwritePrompt = false;
             this.saveFileDialog1.Title = "Bilddatei speichern";
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 310F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.groupBoxTabelle, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panelRechts, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(16, 83);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(693, 649);
+            this.tableLayoutPanel1.TabIndex = 12;
+            // 
             // FormTabelle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(725, 748);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.panelRechts);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.groupBoxTabelle);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FormTabelle";
+            this.Padding = new System.Windows.Forms.Padding(16, 83, 16, 16);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BFEasier";
             this.Load += new System.EventHandler(this.FormTabelle_Load);
-            this.SizeChanged += new System.EventHandler(this.FormTabelle_SizeChanged);
             this.panelTabelle.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabelle)).EndInit();
             this.groupBoxTabelle.ResumeLayout(false);
@@ -319,6 +338,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -347,6 +367,7 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Button buttonSpeichern;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
 

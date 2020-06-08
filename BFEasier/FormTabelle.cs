@@ -59,19 +59,6 @@
         }
 
         /// <summary>
-        /// Passt die Elemente der Größe des Forms an
-        /// </summary>
-        /// <param name="sender">Objekt, das diese Funktion aufruft</param>
-        /// <param name="e">Objekt der Klasse 'EventArgs'</param>
-        private void FormTabelle_SizeChanged(Object sender, EventArgs e)
-        {
-            // TODO: Add proper resize behaviour
-            //groupBoxTabelle.Size = new Size(Size.Width - gruppeTabSize.Width, Size.Height - gruppeTabSize.Height);
-            //panelTabelle.Size = new Size(groupBoxTabelle.Size.Width - panelTabSize.Width, groupBoxTabelle.Size.Height - panelTabSize.Height);
-            //panelRechts.Location = new Point(Size.Width - panelFunkSize.Width, panelRechts.Location.Y);
-        }
-
-        /// <summary>
         /// Ändert ggf den Wert einer Zelle
         /// </summary>
         /// <param name="sender">Objekt, das diese Funktion aufruft</param>
