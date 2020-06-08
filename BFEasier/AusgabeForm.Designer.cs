@@ -143,7 +143,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ausgabe";
-            this.SizeChanged += new System.EventHandler(this.AusgabeForm_SizeChanged);
             this.panelAusgabe.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAusgabe)).EndInit();
             this.ResumeLayout(false);
