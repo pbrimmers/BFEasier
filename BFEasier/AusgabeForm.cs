@@ -1,16 +1,14 @@
 ﻿namespace BFEasier
 {
     using System;
-    using System.Collections;
-    using System.Drawing;
+    using System.Collections.Generic;
     using System.Windows.Forms;
 
     public partial class AusgabeForm : Form
     {
-        private Size panelSizeDiff, comboLocationDiff, buttonLocationDiff, labelLocationDiff;
         private readonly Ausgabe ausgabe;
         private readonly Int32[] letzteSelectedIndizes;
-        private readonly ArrayList ausgabeliste;
+        private readonly List<Int32> ausgabeliste;
 
         /// <summary>
         /// Gibt den aktuell ausgewählten Index der ComboBox
@@ -36,25 +34,17 @@
         /// <summary>
         /// Konstruktor für das erste Standardausgabe
         /// </summary>
-        /// <param name="list">ArrayList-Array mit allen Schritten der Vereinfachung aller Variablen</param>
-        /// <param name="vereinfachteTerme">ArrayList mit den vereinfachten Termen</param>
-        public AusgabeForm(ArrayList[] list, ArrayList vereinfachteTerme)
+        /// <param name="list">List-Array mit allen Schritten der Vereinfachung aller Variablen</param>
+        /// <param name="vereinfachteTerme">List mit den vereinfachten Termen</param>
+        public AusgabeForm(List<List<Term[]>>[] list, List<Term[]> vereinfachteTerme)
         {
             InitializeComponent();
             ausgabe = new Ausgabe(list, vereinfachteTerme);
 
-            panelSizeDiff = new Size(Size.Width - panelAusgabe.Size.Width, Size.Height - panelAusgabe.Size.Height);
-            comboLocationDiff = new Size(Size.Width - comboBox.Location.X, comboBox.Location.Y);
-            buttonLocationDiff = new Size(Size.Width - buttonSpeichern.Location.X, buttonSpeichern.Location.Y);
-            labelLocationDiff = new Size(Size.Width - label3.Location.X, label3.Location.Y);
-
             MinimumSize = Size;
 
-            ausgabeliste = new ArrayList
-            {
-                -1
-            };
-            for (Int32 i = 0; i < list.Length; i++)
+            ausgabeliste = new List<Int32> { -1 };
+            for (var i = 0; i < list.Length; i++)
             {
                 comboBox.Items.Add(Properties.Settings.Default.ausChar + (i + 1).ToString());
                 ausgabeliste.Add(i);
@@ -66,13 +56,14 @@
         /// <summary>
         /// Konstruktor, um Ausgabegrößen, die Fehler verursachen auszuschließen
         /// </summary>
-        /// <param name="list">ArrayList-Array mit allen Schritten der Vereinfachung aller Variablen</param>
-        /// <param name="vereinfachteTerme">ArrayList mit den vereinfachten Termen</param>
+        /// <param name="list">List-Array mit allen Schritten der Vereinfachung aller Variablen</param>
+        /// <param name="vereinfachteTerme">List mit den vereinfachten Termen</param>
         /// <param name="errorIndizes">Int-Array mit allen Indizes, die Fehler verursachen</param>
         /// <param name="lastIndex">Letzter funktionierender Index</param>
-        public AusgabeForm(ArrayList[] list, ArrayList vereinfachteTerme, ArrayList errorIndizes, Int32 lastIndex) : this(list, vereinfachteTerme)
+        public AusgabeForm(List<List<Term[]>>[] list,
+                           List<Term[]> vereinfachteTerme, ReadOnlySpan<Int32> errorIndizes, Int32 lastIndex) : this(list, vereinfachteTerme)
         {
-            foreach (Int32 i in errorIndizes)
+            foreach (var i in errorIndizes)
             {
                 ausgabeliste.RemoveAt(i);
                 comboBox.Items.RemoveAt(i);
@@ -93,13 +84,13 @@
             //thread.Start();
 
             // Neue Ausgabe erzeugen
-            if ((Int32)ausgabeliste[comboBox.SelectedIndex] == -1)
+            if (ausgabeliste[comboBox.SelectedIndex] == -1)
             {
                 ausgabe.DrawAll();
             }
             else
             {
-                ausgabe.DrawOne((Int32)ausgabeliste[comboBox.SelectedIndex]);
+                ausgabe.DrawOne(ausgabeliste[comboBox.SelectedIndex]);
             }
 
             // Ausgabe anpassen
@@ -119,7 +110,7 @@
         {
             if (saveFileDialog.ShowDialog() != DialogResult.Cancel)
             {
-                String fileName = saveFileDialog.FileName;
+                var fileName = saveFileDialog.FileName;
                 System.Drawing.Imaging.ImageFormat imageFormat;
                 // Werte der Auswahl anpassen
                 switch (saveFileDialog.FilterIndex)

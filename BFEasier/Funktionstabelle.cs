@@ -1,7 +1,7 @@
 ﻿namespace BFEasier
 {
     using System;
-    using System.Collections;
+    using System.Collections.Generic;
     using System.Drawing;
 
     /// <summary>
@@ -65,8 +65,8 @@
         /// <returns>Ergebnis vom Typ 'int'</returns>
         private Int32 Pow2(Int32 e)
         {
-            Int32 temp = 1;
-            for (Int32 i = 0; i < e; i++)
+            var temp = 1;
+            for (var i = 0; i < e; i++)
             {
                 temp *= 2;
             }
@@ -82,7 +82,7 @@
             Single breite = 0;
             zeilenhoehe = graphic.MeasureString("1", Properties.Settings.Default.Font).Height + Properties.Settings.Default.zeilenExt;
 
-            for (Int32 i = 0; i < spalten; i++)
+            for (var i = 0; i < spalten; i++)
             {
                 spaltenbreiten[i] = graphic.MeasureString(Properties.Settings.Default.einChar + (i + 1).ToString(), Properties.Settings.Default.Font).Width + Properties.Settings.Default.spaltenExt;
                 breite += spaltenbreiten[i];
@@ -114,7 +114,7 @@
             #region Horizontale Linien zeichnen
             graphics.DrawLine(pen, 0, 0, groesse.Width, 0);
             graphics.DrawLine(bigPen, 0, zeilenhoehe, groesse.Width, zeilenhoehe);
-            for (Int32 i = 2; i <= zeilen; i++)
+            for (var i = 2; i <= zeilen; i++)
             {
                 graphics.DrawLine(pen, 0, i * zeilenhoehe, groesse.Width, i * zeilenhoehe);
             }
@@ -124,7 +124,7 @@
             #region Vertikale Linien zeichnen
             Single marker = 0;
             graphics.DrawLine(pen, marker, 0, marker, groesse.Height);
-            for (Int32 i = 0; i < (spalten - 1); i++)
+            for (var i = 0; i < (spalten - 1); i++)
             {
                 marker += spaltenbreiten[i];
                 if (i == (AnzahlEingabevariablen - 1))
@@ -144,7 +144,7 @@
             Char tempChar;
             Int32 tempInt;
             marker = 0;
-            for (Int32 i = 0; i < spalten; i++)
+            for (var i = 0; i < spalten; i++)
             {
                 if (i < AnzahlEingabevariablen)
                 {
@@ -166,10 +166,10 @@
             #endregion
 
             #region Werte eintragen
-            for (Int32 j = 0; j < zeilen; j++)
+            for (var j = 0; j < zeilen; j++)
             {
                 marker = 0;
-                for (Int32 i = 0; i < spalten; i++)
+                for (var i = 0; i < spalten; i++)
                 {
                     if (i < AnzahlEingabevariablen)
                     {
@@ -211,8 +211,8 @@
                 return;
             }
 
-            Single tempX = x - ausgabe;
-            Single tempY = y - zeilenhoehe;
+            var tempX = x - ausgabe;
+            var tempY = y - zeilenhoehe;
 
             // Spalte ermitteln
             x = 0;
@@ -265,10 +265,10 @@
         /// <param name="wert">Wert für die Variable, wobei Dont-Care = -1 ist</param>
         public void SetzeWerte(Int32 ausgabeVar, Int32 wert)
         {
-            Single marker = ausgabe;
+            var marker = ausgabe;
             var graphics = Graphics.FromImage(Grafik);
             // Marker auf die richtige Spalte setzen
-            for (Int32 i = 0; i < ausgabeVar; i++)
+            for (var i = 0; i < ausgabeVar; i++)
             {
                 marker += spaltenbreiten[AnzahlEingabevariablen + i];
             }
@@ -280,7 +280,7 @@
                 case 1: tempChar = '1'; break;
                 default: tempChar = '*'; break;
             }
-            for (Int32 i = 0; i < zeilen; i++)
+            for (var i = 0; i < zeilen; i++)
             {
                 // Wert ändern
                 werte[ausgabeVar, i] = wert;
@@ -299,13 +299,13 @@
 
         public Term[] GibMinterme(Int32 ausgabeVar)
         {
-            var minterme = new ArrayList();
-            Int32[] input = new Int32[AnzahlEingabevariablen];
-            for (Int32 i = 0; i < zeilen; i++)
+            var minterme = new List<Term>();
+            var input = new Int32[AnzahlEingabevariablen];
+            for (var i = 0; i < zeilen; i++)
             {
                 if (werte[ausgabeVar, i] != 0)
                 {
-                    for (Int32 j = 0; j < AnzahlEingabevariablen; j++)
+                    for (var j = 0; j < AnzahlEingabevariablen; j++)
                     {
                         input[j] = Convert.ToInt32(Math.Floor((Double)(i / Pow2(AnzahlEingabevariablen - j - 1)))) % 2;
                     }
@@ -313,7 +313,7 @@
                 }
             }
 
-            return (Term[])minterme.ToArray(typeof(Term));
+            return minterme.ToArray();
         }
     }
 }

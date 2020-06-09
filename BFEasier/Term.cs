@@ -1,7 +1,6 @@
 ﻿namespace BFEasier
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
 
     public class Term
@@ -20,8 +19,8 @@
         {
             get
             {
-                Int32 count = 0;
-                foreach (Int32 i in input)
+                var count = 0;
+                foreach (var i in input)
                 {
                     if (i >= 0)
                     {
@@ -49,7 +48,7 @@
             DontCare = dontcare;
             Grad = 0;
             this.input = new Int32[input.Length];
-            for (Int32 i = 0; i < input.Length; i++)
+            for (var i = 0; i < input.Length; i++)
             {
                 this.input[i] = input[i];
                 if (input[i] == 1)
@@ -60,7 +59,7 @@
 
             Minterme = new Int32[1];
             Minterme[0] = 0;
-            for (Int32 i = 0; i < input.Length; i++)
+            for (var i = 0; i < input.Length; i++)
             {
                 Minterme[0] += input[i] * (Int32)Math.Pow(2, input.Length - i - 1);
             }
@@ -79,7 +78,7 @@
         {
             Grad = 0;
             this.input = new Int32[input.Length];
-            for (Int32 i = 0; i < input.Length; i++)
+            for (var i = 0; i < input.Length; i++)
             {
                 this.input[i] = input[i];
                 if (input[i] == 1)
@@ -89,7 +88,7 @@
             }
 
             Minterme = new Int32[minTerme.Length];
-            for (Int32 i = 0; i < minTerme.Length; i++)
+            for (var i = 0; i < minTerme.Length; i++)
             {
                 Minterme[i] = minTerme[i];
             }
@@ -105,8 +104,8 @@
         /// <returns>'true' falls sich die Terme nur in einer Negation unterscheiden, anderfalls 'false'</returns>
         public Boolean IstAehnlichWie(Term term)
         {
-            Boolean temp = false;
-            for (Int32 i = 0; i < input.Length; i++)
+            var temp = false;
+            for (var i = 0; i < input.Length; i++)
             {
                 if (((input[i] != -1) && (term[i] == -1)) || ((input[i] == -1) && (term[i] != -1)))
                 {
@@ -137,10 +136,10 @@
                 return "0";
             }
 
-            String term = "";
-            Int32 nullCounter = 0;
+            var term = "";
+            var nullCounter = 0;
 
-            for (Int32 i = 0; i < input.Length; i++)
+            for (var i = 0; i < input.Length; i++)
             {
                 if (input[i] == 0)
                 {
@@ -179,7 +178,7 @@
             }
 
             // Alle Eingangsvariablen auf Gleichheit überprüfen
-            for (Int32 i = 0; i < term1.Laenge; i++)
+            for (var i = 0; i < term1.Laenge; i++)
             {
                 // Ist ein Eingabeparameter anders sind die Terme nicht gleich
                 if (term1[i] != term2[i])
@@ -209,9 +208,9 @@
         /// <returns>Den zusammengefügten Term</returns>
         public static Term operator +(Term term1, Term term2)
         {
-            Int32[] input = new Int32[term1.Laenge];
+            var input = new Int32[term1.Laenge];
             // Gleichen Variablen übernehmen und unterschiedliche als nicht vorhanden (-1) setzen
-            for (Int32 i = 0; i < term1.Laenge; i++)
+            for (var i = 0; i < term1.Laenge; i++)
             {
                 if (term1[i] == term2[i])
                 {
@@ -224,12 +223,12 @@
             }
 
             // Minterme aus des ersten Terms übernehmen und nicht enthaltene des zweiten Terms hinzufügen
-            var tempMinterme = new ArrayList();
-            foreach (Int32 i in term1.Minterme)
+            var tempMinterme = new List<Int32>();
+            foreach (var i in term1.Minterme)
             {
                 tempMinterme.Add(i);
             }
-            foreach (Int32 i in term2.Minterme)
+            foreach (var i in term2.Minterme)
             {
                 if (!tempMinterme.Contains(i))
                 {
@@ -239,26 +238,16 @@
             // Minterme sortieren
             tempMinterme.Sort();
 
-            var tempTerm = new Term(input, term1.DontCare && term2.DontCare, (Int32[])tempMinterme.ToArray(typeof(Int32)));
+            var tempTerm = new Term(input, term1.DontCare && term2.DontCare, tempMinterme.ToArray());
             return tempTerm;
         }
 
         /// <summary>
-        /// Überprüft, ob der Term in dem ArrayList ist. Die Contains()-Funktion funktioniert irgendwie nicht.
+        /// Überprüft, ob der Term in dem List ist. Die Contains()-Funktion funktioniert irgendwie nicht.
         /// </summary>
         /// <param name="list">Zu überprüfendes Array mit ausschließlich Term-Objekten</param>
         /// <returns>True, falls der Term enthalten ist, andernfalls False</returns>
-        public Boolean IsIn(ArrayList list)
-        {
-            foreach (Term term in list)
-            {
-                if (term == this)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        public Boolean IsIn(List<Term> list) => list.Contains(this);
 
         /// <summary>
         /// Gibt einen Term zurück der 0 ist
@@ -274,26 +263,11 @@
             return term;
         }
 
-        public override Boolean Equals(Object obj)
-        {
-            var term = obj as Term;
-            return term != null &&
-                   DontCare == term.DontCare &&
-                   EqualityComparer<Int32[]>.Default.Equals(input, term.input) &&
-                   Grad == term.Grad &&
-                   EqualityComparer<Int32[]>.Default.Equals(Minterme, term.Minterme) &&
-                   Ist_Null == term.Ist_Null &&
-                   Ist_Primimplikant == term.Ist_Primimplikant &&
-                   DontCare == term.DontCare &&
-                   Laenge == term.Laenge &&
-                   AnzahlEingabevariablen == term.AnzahlEingabevariablen &&
-                   Grad == term.Grad &&
-                   EqualityComparer<Int32[]>.Default.Equals(Minterme, term.Minterme);
-        }
+        public override Boolean Equals(Object obj) => obj is Term term && this == term;
 
         public override Int32 GetHashCode()
         {
-            Int32 hashCode = 1396721366;
+            var hashCode = 1396721366;
             hashCode = hashCode * -1521134295 + EqualityComparer<Int32[]>.Default.GetHashCode(input);
             hashCode = hashCode * -1521134295 + Ist_Null.GetHashCode();
             hashCode = hashCode * -1521134295 + Ist_Primimplikant.GetHashCode();

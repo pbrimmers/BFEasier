@@ -1,6 +1,7 @@
 ﻿namespace BFEasier
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
 
@@ -39,7 +40,7 @@
             comboBoxWert.SelectedIndex = 1;
 
             // Entsprechend der Anzahl der Ausgangsvariablen die Combobox mit Elementen füllen
-            for (Int32 i = 1; i <= fTabelle.AnzahlAusgabevariablen; i++)
+            for (var i = 1; i <= fTabelle.AnzahlAusgabevariablen; i++)
             {
                 comboBoxVariable.Items.Add(Properties.Settings.Default.ausChar + i.ToString());
             }
@@ -116,20 +117,20 @@
         /// </summary>
         private void ErweitereAusgabe()
         {
-            var vereinfachteTerme = new System.Collections.ArrayList();
+            var vereinfachteTerme = new List<Term[]>();
             QuineMcCluskey qmc;
-            var list = new System.Collections.ArrayList[fTabelle.AnzahlAusgabevariablen];
+            var list = new List<List<Term[]>>[fTabelle.AnzahlAusgabevariablen];
 
             // TODO: Run background TASK with cancellation token
             //var thread = new System.Threading.Thread(Waiting.Wait);
             //thread.Start();
 
             // Für jede Ausgangsvariable den Term vereinfachen
-            for (Int32 i = 0; i < fTabelle.AnzahlAusgabevariablen; i++)
+            for (var i = 0; i < fTabelle.AnzahlAusgabevariablen; i++)
             {
                 // Terme auslesen und vereinfachen
                 qmc = new QuineMcCluskey(fTabelle.GibMinterme(i));
-                list[i] = new System.Collections.ArrayList();
+                list[i] = new List<List<Term[]>>();
                 vereinfachteTerme.Add(qmc.Vereinfache(ref list[i]));
             }
 
@@ -137,9 +138,9 @@
             //thread.Abort();
 
             // Ausgabe im Form
-            var errorIndizes = new System.Collections.ArrayList();
+            var errorIndizes = new List<Int32>();
             var form = new AusgabeForm(list, vereinfachteTerme);
-            Boolean just_error = true;
+            var just_error = true;
             while (just_error)
             {
                 try
@@ -151,7 +152,7 @@
                 {
                     MessageBox.Show("Leider ist die Darstellung zu groß!", "Darstellung nicht möglich", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     errorIndizes.Add(form.SelectedIndex);
-                    form = new AusgabeForm(list, vereinfachteTerme, errorIndizes, form.LastIndex);
+                    form = new AusgabeForm(list, vereinfachteTerme, errorIndizes.ToArray(), form.LastIndex);
                 }
             }
 
@@ -164,14 +165,14 @@
         {
             Term[] vereinfachteTerme;
             QuineMcCluskey qmc;
-            String tempString = "";
+            var tempString = "";
 
             // TODO: Run background TASK with cancellation token
             //var thread = new System.Threading.Thread(Waiting.Wait);
             //thread.Start();
 
             // Für jede Ausgangsvaribale den Term vereinfachen
-            for (Int32 i = 0; i < fTabelle.AnzahlAusgabevariablen; i++)
+            for (var i = 0; i < fTabelle.AnzahlAusgabevariablen; i++)
             {
                 // Terme auslesen und vereinfachen
                 qmc = new QuineMcCluskey(fTabelle.GibMinterme(i));
@@ -180,7 +181,7 @@
                 // Vereinfachten Term in den temporären String schreiben
                 tempString += Properties.Settings.Default.ausChar + (i + 1).ToString() + " = ";
                 tempString += vereinfachteTerme[0].ToString();
-                for (Int32 j = 1; j < vereinfachteTerme.Length; j++)
+                for (var j = 1; j < vereinfachteTerme.Length; j++)
                 {
                     tempString += "+" + vereinfachteTerme[j].ToString();
                 }
@@ -206,7 +207,7 @@
         {
             if (saveFileDialog1.ShowDialog() != DialogResult.Cancel)
             {
-                String fileName = saveFileDialog1.FileName;
+                var fileName = saveFileDialog1.FileName;
                 System.Drawing.Imaging.ImageFormat imageFormat;
                 switch (saveFileDialog1.FilterIndex)
                 {
